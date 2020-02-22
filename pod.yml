@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app1
+spec:
+  selector:
+    matchLabels:
+      run: app1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: app1
+    spec:
+      containers:
+      - name: app1
+        image: 293538378862.dkr.ecr.us-east-1.amazonaws.com/demo-ecrre-vimtpoz4c758:latest
+        ports:
+        - name: http
+          containerPort: 80
+          hostPort: 80
+        volumeMounts:
+        - name: foo
+          mountPath: "/etc/foo"
+      volumes:
+      - name: foo
+        secret:
+          secretName: answer
+          items:
+          - key: answer
+            path: game/answer
+            mode: 511
