@@ -24,7 +24,7 @@ pipeline {
     stage('Smart Check') {
       steps{
 	sh '''#!/bin/bash
-		/bin/scan.sh
+		/bin/scan2.sh
         '''
       }
     }
